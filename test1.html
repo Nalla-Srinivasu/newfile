@@ -1,0 +1,75 @@
+<html>
+<body>
+<script src="vue.min.js" ></script>
+	<div id="app" >
+		<P>welcome </P>
+			sldfjlsdfjsdf
+			<div>{{ name }}</div>
+			<div><input type="text" v-model="name" ></div>
+			<div>{{ states }}</div>
+			<ul>
+				<li v-for="v in states" >{{ v }}</li>
+			</ul>
+		<select id="state" >
+			<option v-for="v in states" v-bind:value="v" >{{ v }}</option>
+		</select>
+		<ul>
+			<li v-for="v,k in cities" >
+				<div v-on:click="v['show']=true">{{ k }}</div>
+				<div v-if="v['show']">MLA: {{ v['MLA'] }}</div>
+				<ul v-if="v['show']">
+					<li v-for="a in v['areas']" >{{ a }}</li>
+				</ul>
+			</li>
+		</ul>
+		<div v-if="showdiv==false"><input type="button" value="ShowIt" v-on:click="showsomething" ></div>
+		<div v-if="showdiv"><input type="button" value="HideIt" v-on:click="hidesomething" ></div>
+		<div v-if="showdiv">This is hidden text</div>
+</div>
+<script>
+	/*
+	v-for
+	v-if
+	v-bind
+	v-model
+	v-on
+	*/
+var app = new Vue({
+	el: "#app",
+	data: {
+		name: "Apparao",
+		showdiv: false,
+		states: [
+			"Andrha", 
+			"Kerala",
+			"Maharasthra"
+		],
+		cities: {
+			"Kakinada": {
+				"show": false,
+				"MLA": "Subbarao",
+				"areas": [
+					"jagannaickpur", "banugudi"
+				]
+			},
+			"rajahmundry": {
+				"show": false,
+				"MLA": "Pentarao",
+				"areas": [
+					"dummula peta", "danavaypet"
+				]
+			}
+		}
+	},
+	methods: {
+		showsomething: function(){
+			this.showdiv = true;
+		},
+		hidesomething: function(){
+			this.showdiv = false;
+		}
+	}
+});
+</script>
+</body>
+</html>

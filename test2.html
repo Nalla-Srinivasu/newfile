@@ -1,0 +1,80 @@
+
+<script src="vue.min.js" ></script>
+<div id="app" >
+	<table><tr><td>
+		<div><input type="text" v-model="new_state" ><input type="button" v-on:click="add_state" value="+" ></div>
+		<ul>
+			<li v-for="s,i in states" >{{ s }} <input type="button" v-on:click="deletestate(i)" value="X" ></li>
+		</ul>
+	</td><td>
+		<div>State: <input type="text" v-model="new_city['state']" ></div>
+		<div>City: <input type="text" v-model="new_city['city']" ></div>
+		<div><input type="button" v-on:click="add_city" value="+" ></div>
+		<table>
+			<tr><td>State</td><td>City</td></tr>
+			<tr v-for="c,i in cities" >
+				<td>{{ c['state'] }}</td>
+				<td>{{ c['city'] }}</td>
+				<td><input type="button" v-on:click="deletestate(i)" value="X" ></td>
+			</tr>
+		</table>
+	</td><td>
+		<div>State: <select v-model="new_city['state']" >
+			<option v-for="s in states" v-bind:value="s" >{{ s }}</option>
+		</select>
+		</div>
+		<div>City: <input type="text" v-model="new_city['city']" ></div>
+		<div><input type="button" v-on:click="add_city" value="+" ></div>
+		<table>
+			<tr><td>State</td><td>City</td></tr>
+			<tr v-for="c,i in cities" >
+				<td>{{ c['state'] }}</td>
+				<td>{{ c['city'] }}</td>
+				<td><input type="button" v-on:click="deletestate(i)" value="X" ></td>
+			</tr>
+		</table>
+	</td></tr></table>
+</div>
+<script>
+
+/*  variabels or functions becomes reactive */
+
+var app = new Vue({
+	el: "#app",
+	data: {
+		new_state: "",
+		new_city: {
+			"state": "",
+			"city": ""
+		},
+		states: [
+			"Andrha", 
+			"Kerala",
+			"Maharasthra"
+		],
+		cities: [
+			{
+				"state": "andhra",
+				"city": "kkd"	
+			}
+		]
+	},
+	methods: {
+		add_state: function(){
+			this.states.push( this.new_state+'' );
+		},
+		deletestate: function(vi){
+			this.states.splice(vi,1);
+		},
+		add_city: function(){
+			this.cities.push({
+				"state": this.new_city['state'],
+				"city": this.new_city['city']
+			});
+			this.new_city = {
+				"state": "", "city": ""
+			}
+		}
+	}
+});
+</script>
